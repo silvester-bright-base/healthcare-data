@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download blob
-      run: az storage blob download --container-name nza --file ./resources --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+      run: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
     - name : machine ls $HOME
       working-directory : "."
