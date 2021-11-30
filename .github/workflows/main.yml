@@ -41,18 +41,18 @@ jobs:
  
     - name : Make resource directory.
       working-directory : "."
-      run : "mkdir /resources"
+      run : "mkdir ./resources"
 
     - uses: fixpoint/azblob-download-artifact@v3
       with:
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
         name: nza.zip
-        path: /resources
+        path: ./resources
         container: nza
     
     - name : machine ls $HOME
       working-directory : "."
-      run : "ls -la /resources"
+      run : "ls -la ./resources"
     
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
@@ -60,7 +60,7 @@ jobs:
         args: unzip -qq /resources/nza.zip -d /resources
 
     - run: dotnet publish ./Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
-    - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries /resources/01_DBC.csv --activity-summaries /resources/02_DBC_PROFIEL.csv --activities /resources/03_REF_ZAT.csv --diagnoses /resources/04_REF_DGN.csv --products /resources/05_REF_ZPD.csv --specialties /resources/06_REF_SPC.csv
+    - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries ./resources/01_DBC.csv --activity-summaries ./resources/02_DBC_PROFIEL.csv --activities ./resources/03_REF_ZAT.csv --diagnoses ./resources/04_REF_DGN.csv --products ./resources/05_REF_ZPD.csv --specialties ./resources/06_REF_SPC.csv
     - run: pg_dump --host postgres --port 5432 -U postgres -d nza -Fp > seed.sql
     - name: Archive Seed Artifact
       uses: actions/upload-artifact@v2
