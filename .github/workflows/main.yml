@@ -39,6 +39,10 @@ jobs:
         apt-get update
         apt-get install --yes postgresql-client
  
+    - name : Make resource directory.
+      working-directory : "."
+      run : "mkdir /resources"
+
     - uses: fixpoint/azblob-download-artifact@v3
       with:
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
