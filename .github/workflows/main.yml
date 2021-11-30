@@ -45,7 +45,11 @@ jobs:
         name: nza.zip
         path: /resources
         container: nza
-
+    
+    - name : machine ls $HOME
+      working-directory : "."
+      run : "ls -la /resources"
+    
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
