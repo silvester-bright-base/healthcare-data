@@ -43,13 +43,12 @@ jobs:
       working-directory : "."
       run : "mkdir ./resources"
 
-    - name: Download blob
-      uses: azure/CLI@v1
+    - uses: fixpoint/azblob-download-artifact@v3
       with:
-        azcliversion: 2.0.72
-        inlineScript: |
-          az account show
-          az storage blob download --container-name nza --file ./resources/nza.zip --name nza.zip --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        name: nza.zip
+        path: ./resources
+        container: nza
     
     - name : machine ls $HOME
       working-directory : "."
