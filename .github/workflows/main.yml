@@ -10,6 +10,9 @@ jobs:
   download-blobs:
     runs-on: ubuntu-latest
     steps:
+    - name : Make resource directory.
+      run : "mkdir ./resources"
+
     - name: Download from Azure Blob Storage
       uses: Azure/cli@v1.0.0
       with:
@@ -58,9 +61,6 @@ jobs:
         apt-get update
         apt-get install --yes postgresql-client
  
-    - name : Make resource directory.
-      working-directory : "."
-      run : "mkdir ./resources"
 
     - run: dotnet publish ./Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
     - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries ./resources/01_DBC.csv --activity-summaries ./resources/02_DBC_PROFIEL.csv --activities ./resources/03_REF_ZAT.csv --diagnoses ./resources/04_REF_DGN.csv --products ./resources/05_REF_ZPD.csv --specialties ./resources/06_REF_SPC.csv
