@@ -7,7 +7,23 @@ on:
 
 jobs:
  
+  download-blobs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download blob
+      run: az storage blob download --container-name nza --file ./resources/nza.zip --name nza.zip --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+    
+    - name : machine ls $HOME
+      working-directory : "."
+      run : "ls -la ./resources"
+    
+    - name: Decompress
+      uses: TonyBogdanov/zip@1.0
+      with:
+        args: unzip -qq /resources/nza.zip -d /resources
+
   dump-database:
+    needs: download-blobs
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:5.0-focal
     env:
@@ -42,18 +58,6 @@ jobs:
     - name : Make resource directory.
       working-directory : "."
       run : "mkdir ./resources"
-
-    - name: Download blob
-      run: az storage blob download --container-name nza --file ./resources/nza.zip --name nza.zip --connection-string ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-    
-    - name : machine ls $HOME
-      working-directory : "."
-      run : "ls -la ./resources"
-    
-    - name: Decompress
-      uses: TonyBogdanov/zip@1.0
-      with:
-        args: unzip -qq /resources/nza.zip -d /resources
 
     - run: dotnet publish ./Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
     - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries ./resources/01_DBC.csv --activity-summaries ./resources/02_DBC_PROFIEL.csv --activities ./resources/03_REF_ZAT.csv --diagnoses ./resources/04_REF_DGN.csv --products ./resources/05_REF_ZPD.csv --specialties ./resources/06_REF_SPC.csv
