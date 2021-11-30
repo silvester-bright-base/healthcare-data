@@ -19,9 +19,8 @@ jobs:
         azcliversion: 2.9.1
         inlineScript: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
-    - name : machine ls $HOME
-      working-directory : "."
-      run : "ls -la ./resources"
+    - name: ls
+      run: "ls -la ./resources"
     
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
