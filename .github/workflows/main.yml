@@ -1,0 +1,87 @@
+name: ci
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+
+jobs:
+ 
+  dump-database:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/dotnet/sdk:5.0-focal
+    env:
+      ASPNETCORE_ENVIRONMENT: ci
+      PGPASSWORD: password
+    
+    services:
+      postgres:
+        image: postgres:12.9
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: nza
+          POSTGRES_USER: postgres
+          POSTGRES_PORT: 5432
+        ports:
+        - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:  
+    - name: Check out the repo
+      uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
+
+    - name: Install PostgreSQL client
+      run: |
+        apt-get update
+        apt-get install --yes postgresql-client
+ 
+    - uses: fixpoint/azblob-download-artifact@v3
+      with:
+        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        name: 01_DBC.csv
+        path: /resources
+        
+    - uses: fixpoint/azblob-download-artifact@v3
+      with:
+        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        name: 02_DBC_PROFIEL.csv
+        path: /resources
+        
+    - uses: fixpoint/azblob-download-artifact@v3
+      with:
+        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        name: 03_REF_ZAT.csv
+        path: /resources
+        
+    - uses: fixpoint/azblob-download-artifact@v3
+      with:
+        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        name: 04_REF_DGN.csv
+        path: /resources
+        
+    - uses: fixpoint/azblob-download-artifact@v3
+      with:
+        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        name: 05_REF_ZPD.csv
+        path: /resources
+        
+    - uses: fixpoint/azblob-download-artifact@v3
+      with:
+        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        name: 06_REF_SPC.csv
+        path: /resources
+
+    - run: dotnet publish ./Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
+    - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries /resources/01_DBC.csv --activity-summaries /resources/02_DBC_PROFIEL.csv --activities /resources/03_REF_ZAT.csv --diagnoses /resources/04_REF_DGN.csv --products /resources/05_REF_ZPD.csv --specialties /resources/06_REF_SPC.csv
+    - run: pg_dump --host postgres --port 5432 -U postgres -d nza -Fp > seed.sql
+    - name: Archive Seed Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: sql-seed
+        path: seed.sql
+        retention-days: 1
+  
