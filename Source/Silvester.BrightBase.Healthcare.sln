@@ -1,0 +1,77 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{9A22A736-7A09-4360-BB0B-0D78D0C64B74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B8BE758C-46CD-4A36-8836-E808486C9B3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silvester.BrightBase.Healthcare.Api", "Applications\Silvester.BrightBase.Healthcare.Api\Silvester.BrightBase.Healthcare.Api.csproj", "{7851CDAE-1636-4E5D-932C-73288CD3BE23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{C631D384-4ECD-41D9-9E24-0556C112AD18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silvester.BrightBase.Healthcare.Database", "Libraries\Silvester.BrightBase.Healthcare.Database\Silvester.BrightBase.Healthcare.Database.csproj", "{D2230403-A92E-4AA2-8DD6-9DE5897F8E0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{C1C292A0-E1C0-4316-9DB0-A7BC1BAF86B5}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silvester.Hosting", "Libraries\Silvester.Hosting\Silvester.Hosting.csproj", "{CD7843FB-A855-4F0F-9E5B-739F94A4A22E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silvester.Console", "Libraries\Silvester.Console\Silvester.Console.csproj", "{6CF4158C-E8A2-49E0-B195-F1578B0A56CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consoles", "Consoles", "{DA38C592-BB7C-415D-9B61-4568CB18E506}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Silvester.BrightBase.Healthcare.Seeding.Cli", "Consoles\Silvester.BrightBase.Healthcare.Seeding.Cli\Silvester.BrightBase.Healthcare.Seeding.Cli.csproj", "{E208F966-1231-4C2E-BA6C-88D2F3F643D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silvester.BrightBase.Healthcare.Seeding", "Consoles\Silvester.BrightBase.Healthcare.Seeding\Silvester.BrightBase.Healthcare.Seeding.csproj", "{AE82B7DE-B813-4608-9669-627B6448044C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7851CDAE-1636-4E5D-932C-73288CD3BE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7851CDAE-1636-4E5D-932C-73288CD3BE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7851CDAE-1636-4E5D-932C-73288CD3BE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7851CDAE-1636-4E5D-932C-73288CD3BE23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2230403-A92E-4AA2-8DD6-9DE5897F8E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2230403-A92E-4AA2-8DD6-9DE5897F8E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2230403-A92E-4AA2-8DD6-9DE5897F8E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2230403-A92E-4AA2-8DD6-9DE5897F8E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7843FB-A855-4F0F-9E5B-739F94A4A22E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7843FB-A855-4F0F-9E5B-739F94A4A22E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7843FB-A855-4F0F-9E5B-739F94A4A22E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7843FB-A855-4F0F-9E5B-739F94A4A22E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF4158C-E8A2-49E0-B195-F1578B0A56CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF4158C-E8A2-49E0-B195-F1578B0A56CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF4158C-E8A2-49E0-B195-F1578B0A56CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF4158C-E8A2-49E0-B195-F1578B0A56CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E208F966-1231-4C2E-BA6C-88D2F3F643D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E208F966-1231-4C2E-BA6C-88D2F3F643D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E208F966-1231-4C2E-BA6C-88D2F3F643D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E208F966-1231-4C2E-BA6C-88D2F3F643D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE82B7DE-B813-4608-9669-627B6448044C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE82B7DE-B813-4608-9669-627B6448044C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE82B7DE-B813-4608-9669-627B6448044C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE82B7DE-B813-4608-9669-627B6448044C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7851CDAE-1636-4E5D-932C-73288CD3BE23} = {9A22A736-7A09-4360-BB0B-0D78D0C64B74}
+		{D2230403-A92E-4AA2-8DD6-9DE5897F8E0B} = {C631D384-4ECD-41D9-9E24-0556C112AD18}
+		{CD7843FB-A855-4F0F-9E5B-739F94A4A22E} = {C631D384-4ECD-41D9-9E24-0556C112AD18}
+		{6CF4158C-E8A2-49E0-B195-F1578B0A56CB} = {C631D384-4ECD-41D9-9E24-0556C112AD18}
+		{E208F966-1231-4C2E-BA6C-88D2F3F643D6} = {DA38C592-BB7C-415D-9B61-4568CB18E506}
+		{AE82B7DE-B813-4608-9669-627B6448044C} = {DA38C592-BB7C-415D-9B61-4568CB18E506}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {022489C1-A8F0-4D11-B41D-A9BFF1D59335}
+	EndGlobalSection
+EndGlobal

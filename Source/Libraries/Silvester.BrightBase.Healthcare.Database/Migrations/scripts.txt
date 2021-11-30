@@ -1,0 +1,6 @@
+﻿dotnet ef migrations add Initial --startup-project Applications/Silvester.BrightBase.Healthcare.Api --project Libraries/Silvester.BrightBase.Healthcare.Database
+dotnet ef database update --startup-project Applications/Silvester.BrightBase.Healthcare.Api --project Libraries/Silvester.BrightBase.Healthcare.Database
+
+DROP DATABASE database_brightbase_healthcare;
+CREATE DATABASE database_brightbase_healthcare;
+GRANT ALL PRIVILEGES ON DATABASE database_brightbase_healthcare TO user_brightbase_healthcare;	
