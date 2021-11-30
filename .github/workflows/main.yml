@@ -42,38 +42,14 @@ jobs:
     - uses: fixpoint/azblob-download-artifact@v3
       with:
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        name: 01_DBC.csv
+        name: nza.zip
         path: /resources
-        
-    - uses: fixpoint/azblob-download-artifact@v3
+        container: nza
+
+    - name: Decompress
+      uses: TonyBogdanov/zip@1.0
       with:
-        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        name: 02_DBC_PROFIEL.csv
-        path: /resources
-        
-    - uses: fixpoint/azblob-download-artifact@v3
-      with:
-        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        name: 03_REF_ZAT.csv
-        path: /resources
-        
-    - uses: fixpoint/azblob-download-artifact@v3
-      with:
-        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        name: 04_REF_DGN.csv
-        path: /resources
-        
-    - uses: fixpoint/azblob-download-artifact@v3
-      with:
-        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        name: 05_REF_ZPD.csv
-        path: /resources
-        
-    - uses: fixpoint/azblob-download-artifact@v3
-      with:
-        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        name: 06_REF_SPC.csv
-        path: /resources
+        args: unzip -qq /resources/nza.zip -d /resources
 
     - run: dotnet publish ./Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
     - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries /resources/01_DBC.csv --activity-summaries /resources/02_DBC_PROFIEL.csv --activities /resources/03_REF_ZAT.csv --diagnoses /resources/04_REF_DGN.csv --products /resources/05_REF_ZPD.csv --specialties /resources/06_REF_SPC.csv
