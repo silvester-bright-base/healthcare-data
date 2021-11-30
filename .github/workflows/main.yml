@@ -10,8 +10,11 @@ jobs:
   download-blobs:
     runs-on: ubuntu-latest
     steps:
-    - name: Download blob
-      run: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+    - name: Publish styles
+      uses: Azure/cli@v1.0.0
+      with:
+        azcliversion: 2.9.1
+        inlineScript: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
     - name : machine ls $HOME
       working-directory : "."
