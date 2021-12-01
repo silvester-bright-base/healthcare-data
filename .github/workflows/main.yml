@@ -58,11 +58,17 @@ jobs:
     - name: ls
       run: "ls"
       
+    - name: pwd
+      run: "pwd"
+      
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
         args: unzip -qq resources/nza.zip -d resources
 
+    - name: pwd
+      run: "pwd"
+      
     - name: ls
       run: "ls -la ~/resources"
 
