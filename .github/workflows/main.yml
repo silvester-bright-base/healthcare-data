@@ -8,7 +8,7 @@ on:
 
 jobs:
  
-  create-prepared-image:
+  create-sql-seed:
     runs-on: ubuntu-latest
     container: 
       image: pipelineimages.azurecr.io/utilities/dotnet-ingestion-pipeline:latest

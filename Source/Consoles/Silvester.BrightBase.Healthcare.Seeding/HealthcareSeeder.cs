@@ -134,7 +134,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding
             await Parallel.ForEachAsync(models.Batch(BatchOptions.Value.BatchSize), parallelOptions, async (batch, cancellationToken) => 
             {
                 HealthcareContext context = ContextFactory.CreateDbContext();
-                
+                context.ChangeTracker.AutoDetectChangesEnabled = false;
+
                 context
                     .Set<TEntity>()
                     .AddRange(Mapper.Map(batch));
