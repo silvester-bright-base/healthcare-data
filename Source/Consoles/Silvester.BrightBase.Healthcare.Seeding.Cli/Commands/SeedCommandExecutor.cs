@@ -16,12 +16,12 @@ namespace Silvester.BrightBase.Healthcare.Seeding.Cli.Commands
     public class SeedCommandExecutor : ICommandExecutor<SeedCommand>
     {
         private IHealthcareSeeder Seeder { get; }
-        private IDbContextFactory<HealthcareContext> ContextFactory { get; }
+        private HealthcareContext Context { get; }
 
-        public SeedCommandExecutor(IHealthcareSeeder seeder, IDbContextFactory<HealthcareContext> contextFactory)
+        public SeedCommandExecutor(IHealthcareSeeder seeder, HealthcareContext context)
         {
             Seeder = seeder;
-            ContextFactory = contextFactory;
+            Context = context;
         }
 
         public async Task<int> ExecuteAsync(CommandLineApplication application, CancellationToken cancellationToken, SeedCommand command)
@@ -45,14 +45,13 @@ namespace Silvester.BrightBase.Healthcare.Seeding.Cli.Commands
 
         private async Task MigrateAsync()
         {
-            HealthcareContext context = ContextFactory.CreateDbContext();
-            IEnumerable<string> appliedMigrations = await context.Database.GetAppliedMigrationsAsync();
+            IEnumerable<string> appliedMigrations = await Context.Database.GetAppliedMigrationsAsync();
             System.Console.WriteLine("Detected migrations: " + appliedMigrations.Count());
 
             if (appliedMigrations.Any() == false)
             {
                 System.Console.WriteLine("Migrating ...");
-                await context.Database.MigrateAsync();
+                await Context.Database.MigrateAsync();
             }
         }
 
