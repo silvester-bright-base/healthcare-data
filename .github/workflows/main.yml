@@ -64,7 +64,7 @@ jobs:
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
-        args: unzip -qq resources/nza.zip -d resources
+        args: unzip -qq ~/resources/nza.zip -d ~/resources
 
     - name: pwd
       run: "pwd"
