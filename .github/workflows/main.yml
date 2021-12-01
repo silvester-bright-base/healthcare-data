@@ -8,7 +8,6 @@ on:
 jobs:
  
   dump-database:
-    needs: download-blobs
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/dotnet/sdk:6.0-focal
     env:
