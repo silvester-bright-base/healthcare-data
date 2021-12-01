@@ -45,7 +45,7 @@ jobs:
       run : "mkdir ./resources"
 
     - name: Download from Azure Blob Storage
-      run: az storage blob download --container-name nza --file "./resources/nza2.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+      run: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza2.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
     - name: Decompress
       uses: TonyBogdanov/zip@1.0

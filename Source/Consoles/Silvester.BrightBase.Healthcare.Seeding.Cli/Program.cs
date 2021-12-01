@@ -50,7 +50,7 @@ namespace Silvester.BrightBase.Healthcare.Seeding
 
                 options.UseNpgsql(connectionString);
                 options.EnableSensitiveDataLogging(true);
-                options.UseLoggerFactory(LoggerFactory.Create(builder =>
+                /*options.UseLoggerFactory(LoggerFactory.Create(builder =>
                 {
                     builder
                         .AddFile("./seed.sql")
@@ -58,7 +58,7 @@ namespace Silvester.BrightBase.Healthcare.Seeding
                         {
                             return category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information;
                         });
-                }));
+                }));*/
             });
         }
     }
