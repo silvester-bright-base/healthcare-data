@@ -42,7 +42,7 @@ namespace Silvester.BrightBase.Healthcare.Seeding
 
             services.AddTransient<ICommandExecutor<SeedCommand>, SeedCommandExecutor>();
             services.AddHealthcareSeeder();
-            services.AddDbContextFactory<HealthcareContext>(options =>
+            services.AddDbContextPool<HealthcareContext>(options =>
             {
                 IConfigurationSection section = configuration.GetSection("databases").GetSection("healthcare");
                 string connectionString = $"Server={section["Server"]};Database={section["Database"]};User Id={section["UserId"]};Password={section["Password"]};Port={section["Port"]};Timeout={section["Timeout"]};CommandTimeout={section["CommandTimeout"]};Include Error Detail={section["IncludeErrorDetails"]}";

@@ -102,19 +102,19 @@ namespace Silvester.BrightBase.Healthcare.Seeding
         where TEntity : class
     {
         private ILogger<BatchSeeder<TModel, TEntity>> Logger { get; }
-        private IDbContextFactory<HealthcareContext> ContextFactory { get; }
+        private IServiceProvider Services { get; }
         private IMapper<TModel, TEntity> Mapper { get; }
         private IOptions<Options> BatchOptions { get; }
 
         private int Count { get; set; }
         private System.Diagnostics.Stopwatch Stopwatch { get; }
 
-        public BatchSeeder(ILogger<BatchSeeder<TModel, TEntity>> logger, IDbContextFactory<HealthcareContext> contextFactory, IMapper<TModel, TEntity> mapper, IOptions<BatchSeeder<TModel, TEntity>.Options> batchOptions)
+        public BatchSeeder(ILogger<BatchSeeder<TModel, TEntity>> logger, IServiceProvider services, IMapper<TModel, TEntity> mapper, IOptions<BatchSeeder<TModel, TEntity>.Options> batchOptions)
         {
             Stopwatch = new System.Diagnostics.Stopwatch();
             Count = 0;
             Logger = logger;
-            ContextFactory = contextFactory;
+            Services = services;
             Mapper = mapper;
             BatchOptions = batchOptions;
         }
@@ -124,6 +124,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding
             Stopwatch.Reset();
             Stopwatch.Start();
 
+            Logger.LogInformation("Available processors: " + Environment.ProcessorCount);
+
             ParallelOptions parallelOptions = new ParallelOptions 
             {
                 MaxDegreeOfParallelism = Environment.ProcessorCount
@@ -131,7 +133,7 @@ namespace Silvester.BrightBase.Healthcare.Seeding
 
             await Parallel.ForEachAsync(models.Batch(BatchOptions.Value.BatchSize), parallelOptions, async (batch, cancellationToken) => 
             {
-                HealthcareContext context = ContextFactory.CreateDbContext();
+                HealthcareContext context = Services.GetRequiredService<HealthcareContext>();
                 
                 context
                     .Set<TEntity>()
