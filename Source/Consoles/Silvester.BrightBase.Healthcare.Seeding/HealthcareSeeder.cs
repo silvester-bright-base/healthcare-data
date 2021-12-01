@@ -38,7 +38,6 @@ namespace Silvester.BrightBase.Healthcare.Seeding
         {
             await SeedProfileClassesAsync(activities);
             activities.Seek(0, SeekOrigin.Begin);
-            await SeedMissingActivities();
 
             await SeedActivitiesAsync(activities);
             await SeedSpecialtiesAsync(specialties);
@@ -46,40 +45,6 @@ namespace Silvester.BrightBase.Healthcare.Seeding
             await SeedDiagnosesAsync(diagnoses);
             await SeedProductSummariesAsync(productSummaries);
             await SeedActivitySummaryAsync(activitySummaries);
-        }
-
-        private async Task SeedMissingActivities()
-        {
-            HealthcareContext context = Services.GetRequiredService<IDbContextFactory<HealthcareContext>>().CreateDbContext();
-            context.Activities.Add(new HealthcareActivity
-            {
-                Id = 39813,
-                DateCreated = DateTimeOffset.Parse("10/18/2021").ToOffset(TimeSpan.Zero),
-                DateMeasured = DateTimeOffset.Parse("10/1/2021").ToOffset(TimeSpan.Zero),
-                Version = "1.0",
-                Description = "Eerste orthoptisch onderzoek (binoculair).",
-                HealthcareProfileClassId = 4
-            }); 
-            context.Activities.Add(new HealthcareActivity
-            {
-                Id = 39814,
-                DateCreated = DateTimeOffset.Parse("10/18/2021").ToOffset(TimeSpan.Zero),
-                DateMeasured = DateTimeOffset.Parse("10/1/2021").ToOffset(TimeSpan.Zero),
-                Version = "1.0",
-                Description = "Voortgezette orthoptische behandeling per bezoek (binoculair).",
-                HealthcareProfileClassId = 4
-            });
-            context.Activities.Add(new HealthcareActivity
-            {
-                Id = 39679,
-                DateCreated = DateTimeOffset.Parse("10/18/2021").ToOffset(TimeSpan.Zero),
-                DateMeasured = DateTimeOffset.Parse("10/1/2021").ToOffset(TimeSpan.Zero),
-                Version = "1.0",
-                Description = "Teambespreking",
-                HealthcareProfileClassId = 4
-            });
-
-            await context.SaveChangesAsync();
         }
 
         private async Task SeedProfileClassesAsync(Stream activities)
