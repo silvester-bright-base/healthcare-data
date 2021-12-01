@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,13 +25,15 @@ namespace Silvester.BrightBase.Healthcare.Seeding.Parsers
             //This takes the header row out of the way.
             _ = parser.ReadFields();
 
+            DateTimeFormatInfo dateTimeFormat = new CultureInfo("NL-nl").DateTimeFormat;
+
             while (parser.EndOfData == false)
             {
                 string[] row = parser.ReadFields()!;
-                yield return Deserialize(row);
+                yield return Deserialize(row, dateTimeFormat);
             }
         }
 
-        protected abstract TModel Deserialize(string[] row);
+        protected abstract TModel Deserialize(string[] row, DateTimeFormatInfo dateTimeFormat);
     }
 }
