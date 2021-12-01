@@ -77,8 +77,10 @@ jobs:
 
     - name: Check out the repo
       uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
+      with:
+        path: './repository'
 
-    - run: dotnet publish ./Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
+    - run: dotnet publish ./repository/Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
     
     - name: pwd
       run: "pwd"
