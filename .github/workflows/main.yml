@@ -37,31 +37,36 @@ jobs:
           --health-retries 5
     
     steps:  
-    - name: Set - Tag
+    - name: SET - Tag
       id: set-tag
       run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
    
-    - name : Make resource directory.
-      run : "mkdir ./resources"
+    - name: CREATE - Directory
+      run: "mkdir ./resources"
 
-    - name: Download from Azure Blob Storage
-      run: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza2.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+    - name: BLOB - Download
+      run: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
-    - name: Decompress
+    - name: BLOB - Unzip
       uses: TonyBogdanov/zip@1.0
       with:
         args: unzip -qq ./resources/nza.zip -d ./resources
 
-    - name: Check out the repo
+    - name: GIT - Checkout
       uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
       with:
         path: './repository'
 
-    - run: dotnet publish ./repository/Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
+    - name: DOTNET - Build
+      run: dotnet publish ./repository/Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
 
-    - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries ./resources/01_DBC.csv --activity-summaries ./resources/02_DBC_PROFIEL.csv --activities ./resources/03_REF_ZAT.csv --diagnoses ./resources/04_REF_DGN.csv --products ./resources/05_REF_ZPD.csv --specialties ./resources/06_REF_SPC.csv
-    - run: pg_dump --host postgres --port 5432 -U postgres -d database_brightbase_healthcare -Fp > seed.sql
-    - name: Archive Seed Artifact
+    - name: DOTNET - Run CLI
+      run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries ./resources/01_DBC.csv --activity-summaries ./resources/02_DBC_PROFIEL.csv --activities ./resources/03_REF_ZAT.csv --diagnoses ./resources/04_REF_DGN.csv --products ./resources/05_REF_ZPD.csv --specialties ./resources/06_REF_SPC.csv
+
+    - name: PSQL - Dump
+      run: pg_dump --host postgres --port 5432 -U postgres -d database_brightbase_healthcare -Fp > seed.sql
+
+    - name: GITHUB - Archive Seed Artifact
       uses: actions/upload-artifact@v2
       with:
         name: sql-seed

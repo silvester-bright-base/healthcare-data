@@ -57,29 +57,29 @@ namespace Silvester.BrightBase.Healthcare.Seeding
             await SeedAsync<Activity, HealthcareActivity>(Parse<Activity>(activities));
         }
 
-        private Task SeedSpecialtiesAsync(Stream specialties)
+        private async Task SeedSpecialtiesAsync(Stream specialties)
         {
-            return SeedAsync<Specialty, HealthcareSpecialty>(Parse<Specialty>(specialties));
+            await SeedAsync<Specialty, HealthcareSpecialty>(Parse<Specialty>(specialties));
         }
 
-        private Task SeedProductsAsync(Stream products)
+        private async Task SeedProductsAsync(Stream products)
         {
-            return SeedAsync<Product, HealthcareProduct>(Parse<Product>(products));
+            await SeedAsync<Product, HealthcareProduct>(Parse<Product>(products));
         }
 
-        private Task SeedDiagnosesAsync(Stream diagnoses)
+        private async Task SeedDiagnosesAsync(Stream diagnoses)
         {
-            return SeedAsync<Diagnosis, HealthcareDiagnosis>(Parse<Diagnosis>(diagnoses));
+            await SeedAsync<Diagnosis, HealthcareDiagnosis>(Parse<Diagnosis>(diagnoses));
         }
 
-        private Task SeedProductSummariesAsync(Stream productSummaries)
+        private async Task SeedProductSummariesAsync(Stream productSummaries)
         {
-            return SeedAsync<ProductSummary, HealthcareProductSummary>(Parse<ProductSummary>(productSummaries));
+            await SeedAsync<ProductSummary, HealthcareProductSummary>(Parse<ProductSummary>(productSummaries));
         }
 
-        private Task SeedActivitySummaryAsync(Stream activitySummaries)
+        private async Task SeedActivitySummaryAsync(Stream activitySummaries)
         {
-            return SeedAsync<ActivitySummary, HealthcareActivitySummary>(Parse<ActivitySummary>(activitySummaries));
+            await SeedAsync<ActivitySummary, HealthcareActivitySummary>(Parse<ActivitySummary>(activitySummaries));
         }
 
         private IEnumerable<TModel> Parse<TModel>(Stream csv)
@@ -91,6 +91,7 @@ namespace Silvester.BrightBase.Healthcare.Seeding
 
         private async Task SeedAsync<TModel, TEntity>(IEnumerable<TModel> models)
             where TEntity : class
+            where TModel : class
         {
             await ActivatorUtilities
                .CreateInstance<BatchSeeder<TModel, TEntity>>(Services)
@@ -100,6 +101,7 @@ namespace Silvester.BrightBase.Healthcare.Seeding
 
     public class BatchSeeder<TModel, TEntity>
         where TEntity : class
+        where TModel : class
     {
         private ILogger<BatchSeeder<TModel, TEntity>> Logger { get; }
         private IDbContextFactory<HealthcareContext> ContextFactory { get; }
