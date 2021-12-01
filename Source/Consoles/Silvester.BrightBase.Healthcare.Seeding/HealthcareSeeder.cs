@@ -161,7 +161,7 @@ namespace Silvester.BrightBase.Healthcare.Seeding
 
             ParallelOptions parallelOptions = new ParallelOptions 
             {
-                MaxDegreeOfParallelism = 24 
+                MaxDegreeOfParallelism = Environment.ProcessorCount
             };
 
             await Parallel.ForEachAsync(models.Batch(BatchOptions.Value.BatchSize), parallelOptions, async (batch, cancellationToken) => 
@@ -185,7 +185,7 @@ namespace Silvester.BrightBase.Healthcare.Seeding
 
             public Options()
             {
-                BatchSize = 10000;
+                BatchSize = 1000;
             }
         }
     }
