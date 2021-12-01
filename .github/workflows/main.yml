@@ -31,6 +31,9 @@ jobs:
           --health-retries 5
     
     steps:  
+    - name: CD 
+      run: cd ~/
+        
     - name: CLI - Curl
       run: |
         apt-get update
@@ -44,19 +47,22 @@ jobs:
         apt-get install --yes postgresql-client
 
     - name : Make resource directory.
-      run : "mkdir ~/resources"
+      run : "mkdir resources"
 
     - name: Download from Azure Blob Storage
-      run: az storage blob download --container-name nza --file "~/resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+      run: az storage blob download --container-name nza --file "resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
     - name: ls
-      run: "ls -la ~/resources"
+      run: "ls -la resources"
     
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
-        args: unzip -qq ~/resources/nza.zip -d ~/resources
+        args: unzip -qq resources/nza.zip -d resources
 
+    - name: ls
+      run: "ls -la resources"
+      
     - name: ls
       run: "ls -la ~/resources"
 
