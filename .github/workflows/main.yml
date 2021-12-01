@@ -9,7 +9,12 @@ jobs:
  
   create-prepared-image:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/dotnet/sdk:6.0-focal
+    container: 
+      image: pipelineimages.azurecr.io/dotnet-ingestion-pipeline:latest
+      credentials:
+        username: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
+        password: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+
     env:
       ASPNETCORE_ENVIRONMENT: ci
       PGPASSWORD: password
@@ -31,49 +36,17 @@ jobs:
           --health-retries 5
     
     steps:  
-    - name: CD 
-      run: cd ./
-        
-    - name: CLI - Curl
-      run: |
-        apt-get update
-        apt-get install --yes curl
-        
-    - name: CLI - Azure
-      run: curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-
-    - name: CLI - Postgresql
-      run: |
-        apt-get install --yes postgresql-client
-
+   
     - name : Make resource directory.
       run : "mkdir ./resources"
 
     - name: Download from Azure Blob Storage
       run: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
-    - name: ls
-      run: "ls -la ./resources"
-    
-    - name: ls
-      run: "ls"
-      
-    - name: pwd
-      run: "pwd"
-      
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
         args: unzip -qq ./resources/nza.zip -d ./resources
-
-    - name: pwd
-      run: "pwd"
-      
-    - name: ls
-      run: "ls -la ./resources"
-
-    - name: ls
-      run: "ls"
 
     - name: Check out the repo
       uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
@@ -81,12 +54,6 @@ jobs:
         path: './repository'
 
     - run: dotnet publish ./repository/Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
-    
-    - name: pwd
-      run: "pwd"
-      
-    - name: ls
-      run: "ls -la ./resources"
 
     - name: ls
       run: "ls"
