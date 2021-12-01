@@ -47,10 +47,7 @@ jobs:
       run : "mkdir ./resources"
 
     - name: Download from Azure Blob Storage
-      uses: Azure/cli@v1.0.0
-      with:
-        azcliversion: 2.9.1
-        inlineScript: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+      run: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
     - name: ls
       run: "ls -la ./resources"
