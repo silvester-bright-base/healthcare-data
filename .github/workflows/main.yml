@@ -55,6 +55,9 @@ jobs:
     - name: ls
       run: "ls -la ~/resources"
     
+    - name: ls
+      run: "ls"
+      
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
@@ -62,6 +65,9 @@ jobs:
 
     - name: ls
       run: "ls -la ~/resources"
+
+    - name: ls
+      run: "ls"
 
     - name: Check out the repo
       uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
