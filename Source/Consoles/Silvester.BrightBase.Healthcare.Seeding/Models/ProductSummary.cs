@@ -9,8 +9,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding.Models
     public class ProductSummary
     {
         public string Versie { get; set; } = default!;
-        public DateOnly DatumBestand { get; set; }
-        public DateOnly PeilDatum { get; set; }
+        public DateTimeOffset DatumBestand { get; set; }
+        public DateTimeOffset PeilDatum { get; set; }
         public int Jaar { get; set; }
         public int BehandelendSpecialismeCd { get; set; } 
         public string TyperendeDiagnoseCd { get; set; } = default!;

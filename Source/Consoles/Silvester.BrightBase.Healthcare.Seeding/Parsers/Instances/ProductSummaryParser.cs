@@ -16,8 +16,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding.Parsers.Instances
             return new ProductSummary
             {
                 Versie = row[0],
-                DatumBestand = DateOnly.Parse(row[1]),
-                PeilDatum = DateOnly.Parse(row[2]),
+                DatumBestand = DateTimeOffset.Parse(row[1]),
+                PeilDatum = DateTimeOffset.Parse(row[2]),
                 Jaar = int.Parse(row[3]),
                 BehandelendSpecialismeCd = int.Parse(row[4]),
                 TyperendeDiagnoseCd = row[5],

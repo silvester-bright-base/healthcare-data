@@ -17,64 +17,6 @@ using System.Reflection;
 
 namespace Silvester.BrightBase.Healthcare.Api.Graphql
 {
-    public class DateOnlyType : ScalarType<DateOnly, StringValueNode>
-    {
-        public DateOnlyType() 
-            : base(new NameString("DateOnly"), BindingBehavior.Explicit)
-        {
-            Description = "A date without a time component.";
-        }
-
-        public override IValueNode ParseResult(object? resultValue)
-        {
-            return resultValue switch
-            {
-                null => NullValueNode.Default,
-                string s => new StringValueNode(s),
-                DateTimeOffset d => ParseValue(d),
-                DateTime d => ParseValue(d),
-                DateOnly d => ParseValue(d),
-                _ => throw new InvalidOperationException()
-            };
-        }
-
-        protected override DateOnly ParseLiteral(StringValueNode valueSyntax)
-        {
-            return DateOnly.Parse(valueSyntax.Value);
-        }
-
-        protected override StringValueNode ParseValue(DateOnly runtimeValue)
-        {
-            return new StringValueNode(runtimeValue.ToString());
-        }
-
-        public override bool TryDeserialize(object? resultValue, out object? runtimeValue)
-        {
-            runtimeValue = null;
-
-            if (resultValue is string s)
-            {
-                runtimeValue = DateOnly.Parse(s);
-                return true;
-            }
-
-            return false;
-        }
-
-        public override bool TrySerialize(object? runtimeValue, out object? resultValue)
-        {
-            resultValue = null;
-
-            if (runtimeValue is DateOnly date)
-            {
-                resultValue = date.ToString();
-                return true;
-            }
-
-            return false;
-        }
-    }
-
     public partial class Query
     {
        

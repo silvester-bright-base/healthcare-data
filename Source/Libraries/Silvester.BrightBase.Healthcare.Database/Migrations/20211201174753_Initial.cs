@@ -21,8 +21,8 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                     InsuredClaimCode = table.Column<string>(type: "text", nullable: true),
                     UninsuredClaimCode = table.Column<string>(type: "text", nullable: true),
                     Version = table.Column<string>(type: "text", nullable: false),
-                    DateCreated = table.Column<DateOnly>(type: "date", nullable: false),
-                    DateMeasured = table.Column<DateOnly>(type: "date", nullable: false)
+                    DateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DateMeasured = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,8 +37,8 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Version = table.Column<string>(type: "text", nullable: false),
-                    DateCreated = table.Column<DateOnly>(type: "date", nullable: false),
-                    DateMeasured = table.Column<DateOnly>(type: "date", nullable: false)
+                    DateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DateMeasured = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,8 +53,8 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Version = table.Column<string>(type: "text", nullable: false),
-                    DateCreated = table.Column<DateOnly>(type: "date", nullable: false),
-                    DateMeasured = table.Column<DateOnly>(type: "date", nullable: false)
+                    DateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DateMeasured = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,8 +70,8 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     HealthcareProfileClassId = table.Column<int>(type: "integer", nullable: false),
                     Version = table.Column<string>(type: "text", nullable: false),
-                    DateCreated = table.Column<DateOnly>(type: "date", nullable: false),
-                    DateMeasured = table.Column<DateOnly>(type: "date", nullable: false)
+                    DateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DateMeasured = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,8 +92,8 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                     HealthcareSpecialtyId = table.Column<int>(type: "integer", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Version = table.Column<string>(type: "text", nullable: false),
-                    DateCreated = table.Column<DateOnly>(type: "date", nullable: false),
-                    DateMeasured = table.Column<DateOnly>(type: "date", nullable: false)
+                    DateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DateMeasured = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,8 +122,8 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                     HealthcareActivityId = table.Column<int>(type: "integer", nullable: false),
                     HealthcareProfileClassId = table.Column<int>(type: "integer", nullable: false),
                     Version = table.Column<string>(type: "text", nullable: false),
-                    DateCreated = table.Column<DateOnly>(type: "date", nullable: false),
-                    DateMeasured = table.Column<DateOnly>(type: "date", nullable: false)
+                    DateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DateMeasured = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -178,8 +178,8 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                     TypicalDiagnosisId = table.Column<string>(type: "text", nullable: false),
                     HealthcareProductId = table.Column<int>(type: "integer", nullable: false),
                     Version = table.Column<string>(type: "text", nullable: false),
-                    DateCreated = table.Column<DateOnly>(type: "date", nullable: false),
-                    DateMeasured = table.Column<DateOnly>(type: "date", nullable: false)
+                    DateCreated = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DateMeasured = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {

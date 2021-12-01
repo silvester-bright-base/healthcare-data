@@ -12,7 +12,7 @@ using Silvester.BrightBase.Healthcare.Database;
 namespace Silvester.BrightBase.Healthcare.Database.Migrations
 {
     [DbContext(typeof(HealthcareContext))]
-    [Migration("20211123220547_Initial")]
+    [Migration("20211201174753_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,11 +32,11 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("DateCreated")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("DateMeasured")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateMeasured")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -67,11 +67,11 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                     b.Property<int>("ActivityAmount")
                         .HasColumnType("integer");
 
-                    b.Property<DateOnly>("DateCreated")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("DateMeasured")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateMeasured")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("HealthcareActivityId")
                         .HasColumnType("integer");
@@ -125,11 +125,11 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                     b.Property<int>("HealthcareSpecialtyId")
                         .HasColumnType("integer");
 
-                    b.Property<DateOnly>("DateCreated")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("DateMeasured")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateMeasured")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -158,11 +158,11 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateOnly>("DateCreated")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("DateMeasured")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateMeasured")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("InsuredClaimCode")
                         .HasColumnType("text");
@@ -194,11 +194,11 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
                     b.Property<int>("AverageSalesPrice")
                         .HasColumnType("integer");
 
-                    b.Property<DateOnly>("DateCreated")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("DateMeasured")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateMeasured")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("HealthcareProductId")
                         .HasColumnType("integer");
@@ -254,11 +254,11 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("DateCreated")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("DateMeasured")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateMeasured")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -281,11 +281,11 @@ namespace Silvester.BrightBase.Healthcare.Database.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("DateCreated")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateOnly>("DateMeasured")
-                        .HasColumnType("date");
+                    b.Property<DateTimeOffset>("DateMeasured")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()

@@ -16,8 +16,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding.Parsers.Instances
             return new Diagnosis
             {
                 Versie = row[0],
-                DatumBestand = DateOnly.Parse(row[1]),
-                PeilDatum = DateOnly.Parse(row[2]),
+                DatumBestand = DateTimeOffset.Parse(row[1]),
+                PeilDatum = DateTimeOffset.Parse(row[2]),
                 DiagnoseCd = row[3],
                 SpecialismeCd = int.Parse(row[4]),
                 DiagnoseOmschrijving = row[5]

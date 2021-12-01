@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Silvester.BrightBase.Healthcare.Api.Graphql;
 using Silvester.BrightBase.Healthcare.Api.Graphql.Extensions;
-using Silvester.BrightBase.Healthcare.Api.Graphql.Interceptors;
 using Silvester.BrightBase.Healthcare.Api.Probes;
 using Silvester.BrightBase.Healthcare.Api.Services;
 using Silvester.BrightBase.Healthcare.Database;
@@ -94,9 +93,7 @@ namespace Silvester.BrightBase.Healthcare.Api
                 .AddSorting()
                 .AddProjections()
                 .AddType<QueryType>()
-                .AddType<DateOnlyType>()
-                .SetPagingOptions(new PagingOptions { MaxPageSize = 100, DefaultPageSize = 25, IncludeTotalCount = true })
-                .TryAddTypeInterceptor<DateOnlyInterceptor>();
+                .SetPagingOptions(new PagingOptions { MaxPageSize = 100, DefaultPageSize = 25, IncludeTotalCount = true });
 
             services
                 .Configure<ForwardedHeadersOptions>(options =>

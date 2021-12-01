@@ -15,8 +15,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding.Parsers.Instances
             return new Activity
             {
                 Versie = row[0],
-                DatumBestand = DateOnly.Parse(row[1]),
-                PeilDatum = DateOnly.Parse(row[2]),
+                DatumBestand = DateTimeOffset.Parse(row[1]),
+                PeilDatum = DateTimeOffset.Parse(row[2]),
                 ZorgactiviteitCd = int.Parse(row[3]),
                 Omschrijving = row[4],
                 ZorgprofielKlasseCd = int.Parse(row[5]),

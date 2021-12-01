@@ -54,8 +54,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding
             context.Activities.Add(new HealthcareActivity
             {
                 Id = 39813,
-                DateCreated = DateOnly.Parse("10/18/2021"),
-                DateMeasured = DateOnly.Parse("10/1/2021"),
+                DateCreated = DateTimeOffset.Parse("10/18/2021").ToOffset(TimeSpan.Zero),
+                DateMeasured = DateTimeOffset.Parse("10/1/2021").ToOffset(TimeSpan.Zero),
                 Version = "1.0",
                 Description = "Eerste orthoptisch onderzoek (binoculair).",
                 HealthcareProfileClassId = 4
@@ -63,8 +63,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding
             context.Activities.Add(new HealthcareActivity
             {
                 Id = 39814,
-                DateCreated = DateOnly.Parse("10/18/2021"),
-                DateMeasured = DateOnly.Parse("10/1/2021"),
+                DateCreated = DateTimeOffset.Parse("10/18/2021").ToOffset(TimeSpan.Zero),
+                DateMeasured = DateTimeOffset.Parse("10/1/2021").ToOffset(TimeSpan.Zero),
                 Version = "1.0",
                 Description = "Voortgezette orthoptische behandeling per bezoek (binoculair).",
                 HealthcareProfileClassId = 4
@@ -72,8 +72,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding
             context.Activities.Add(new HealthcareActivity
             {
                 Id = 39679,
-                DateCreated = DateOnly.Parse("10/18/2021"),
-                DateMeasured = DateOnly.Parse("10/1/2021"),
+                DateCreated = DateTimeOffset.Parse("10/18/2021").ToOffset(TimeSpan.Zero),
+                DateMeasured = DateTimeOffset.Parse("10/1/2021").ToOffset(TimeSpan.Zero),
                 Version = "1.0",
                 Description = "Teambespreking",
                 HealthcareProfileClassId = 4

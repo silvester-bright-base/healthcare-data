@@ -10,7 +10,7 @@ namespace Silvester.BrightBase.Healthcare.Database.Models
     public class BaseEntity
     {
         public string Version { get; set; } = default!;
-        public DateTime DateCreated { get; set; }
-        public DateTime DateMeasured { get; set; }
+        public DateTimeOffset DateCreated { get; set; }
+        public DateTimeOffset DateMeasured { get; set; }
     }
 }

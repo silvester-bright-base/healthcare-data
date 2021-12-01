@@ -15,8 +15,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding.Mappers.Instances
             return new HealthcareDiagnosis
             {
                 Version = source.Versie,
-                DateCreated = source.DatumBestand,
-                DateMeasured = source.PeilDatum,
+                DateCreated = source.DatumBestand.ToOffset(TimeSpan.Zero),
+                DateMeasured = source.PeilDatum.ToOffset(TimeSpan.Zero),
                 Id = source.DiagnoseCd,
                 HealthcareSpecialtyId = source.SpecialismeCd,
                 Description = source.DiagnoseOmschrijving

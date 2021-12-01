@@ -15,8 +15,8 @@ namespace Silvester.BrightBase.Healthcare.Seeding.Mappers.Instances
             return new HealthcareSpecialty
             {
                 Version = source.Versie,
-                DateCreated = source.DatumBestand,
-                DateMeasured = source.PeilDatum,
+                DateCreated = source.DatumBestand.ToOffset(TimeSpan.Zero),
+                DateMeasured = source.PeilDatum.ToOffset(TimeSpan.Zero),
                 Id = source.SpecialismeCd,
                 Description = source.Omschrijving
             };
