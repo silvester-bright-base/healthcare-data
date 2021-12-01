@@ -7,30 +7,10 @@ on:
 
 jobs:
  
-  download-blobs:
-    runs-on: ubuntu-latest
-    steps:
-    - name : Make resource directory.
-      run : "mkdir ./resources"
-
-    - name: Download from Azure Blob Storage
-      uses: Azure/cli@v1.0.0
-      with:
-        azcliversion: 2.9.1
-        inlineScript: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
-    
-    - name: ls
-      run: "ls -la ./resources"
-    
-    - name: Decompress
-      uses: TonyBogdanov/zip@1.0
-      with:
-        args: unzip -qq ./resources/nza.zip -d ./resources
-
   dump-database:
     needs: download-blobs
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/dotnet/sdk:5.0-focal
+    container: mcr.microsoft.com/dotnet/sdk:6.0-focal
     env:
       ASPNETCORE_ENVIRONMENT: ci
       PGPASSWORD: password
@@ -52,14 +32,37 @@ jobs:
           --health-retries 5
     
     steps:  
-    - name: Check out the repo
-      uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
-
-    - name: Install PostgreSQL client
+    - name: CLI - Curl
       run: |
         apt-get update
+        apt-get install --yes curl
+        
+    - name: CLI - Azure
+      run: curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+    - name: CLI - Postgresql
+      run: |
         apt-get install --yes postgresql-client
- 
+
+    - name : Make resource directory.
+      run : "mkdir ./resources"
+
+    - name: Download from Azure Blob Storage
+      uses: Azure/cli@v1.0.0
+      with:
+        azcliversion: 2.9.1
+        inlineScript: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+    
+    - name: ls
+      run: "ls -la ./resources"
+    
+    - name: Decompress
+      uses: TonyBogdanov/zip@1.0
+      with:
+        args: unzip -qq ./resources/nza.zip -d ./resources
+
+    - name: Check out the repo
+      uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
 
     - run: dotnet publish ./Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
     - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries ./resources/01_DBC.csv --activity-summaries ./resources/02_DBC_PROFIEL.csv --activities ./resources/03_REF_ZAT.csv --diagnoses ./resources/04_REF_DGN.csv --products ./resources/05_REF_ZPD.csv --specialties ./resources/06_REF_SPC.csv
