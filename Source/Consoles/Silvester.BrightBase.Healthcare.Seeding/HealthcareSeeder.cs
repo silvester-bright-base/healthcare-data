@@ -150,7 +150,7 @@ namespace Silvester.BrightBase.Healthcare.Seeding
 
             public Options()
             {
-                BatchSize = 1000;
+                BatchSize = 10000;
             }
         }
     }
