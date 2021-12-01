@@ -11,6 +11,7 @@ using Silvester.BrightBase.Healthcare.Seeding.Cli.Commands;
 using Silvester.BrightBase.Healthcare.Seeding.DependencyInjection;
 using Silvester.BrightBase.Healthcare.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Silvester.BrightBase.Healthcare.Seeding
 {
@@ -49,6 +50,15 @@ namespace Silvester.BrightBase.Healthcare.Seeding
 
                 options.UseNpgsql(connectionString);
                 options.EnableSensitiveDataLogging(true);
+                options.UseLoggerFactory(LoggerFactory.Create(builder =>
+                {
+                    builder
+                        .AddFile("./seed.sql")
+                        .AddFilter((category, level) =>
+                        {
+                            return category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information;
+                        });
+                }));
             });
         }
     }

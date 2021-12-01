@@ -45,7 +45,7 @@ jobs:
       run : "mkdir ./resources"
 
     - name: Download from Azure Blob Storage
-      run: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+      run: az storage blob download --container-name nza --file "./resources/nza2.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
@@ -59,8 +59,6 @@ jobs:
 
     - run: dotnet publish ./repository/Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
 
-    - name: ls
-      run: "ls"
     - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries ./resources/01_DBC.csv --activity-summaries ./resources/02_DBC_PROFIEL.csv --activities ./resources/03_REF_ZAT.csv --diagnoses ./resources/04_REF_DGN.csv --products ./resources/05_REF_ZPD.csv --specialties ./resources/06_REF_SPC.csv
     - run: pg_dump --host postgres --port 5432 -U postgres -d database_brightbase_healthcare -Fp > seed.sql
     - name: Archive Seed Artifact
@@ -88,7 +86,7 @@ jobs:
       with:
         context: .
         push: true 
-        file: Dockerfile
+        file: ./repository/Dockerfile
         tags: |
           pipelineimages.azurecr.io/sources/nza:${{ steps.set-tag.outputs.tag }}
           pipelineimages.azurecr.io/sources/nza:latest
