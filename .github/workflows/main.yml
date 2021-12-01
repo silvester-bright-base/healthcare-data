@@ -32,7 +32,7 @@ jobs:
     
     steps:  
     - name: CD 
-      run: cd ~/
+      run: cd ./
         
     - name: CLI - Curl
       run: |
@@ -47,13 +47,13 @@ jobs:
         apt-get install --yes postgresql-client
 
     - name : Make resource directory.
-      run : "mkdir ~/resources"
+      run : "mkdir ./resources"
 
     - name: Download from Azure Blob Storage
-      run: az storage blob download --container-name nza --file "~/resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+      run: az storage blob download --container-name nza --file "./resources/nza.zip" --name nza.zip --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
     
     - name: ls
-      run: "ls -la ~/resources"
+      run: "ls -la ./resources"
     
     - name: ls
       run: "ls"
@@ -64,13 +64,13 @@ jobs:
     - name: Decompress
       uses: TonyBogdanov/zip@1.0
       with:
-        args: unzip -qq ~/resources/nza.zip -d ~/resources
+        args: unzip -qq ./resources/nza.zip -d ./resources
 
     - name: pwd
       run: "pwd"
       
     - name: ls
-      run: "ls -la ~/resources"
+      run: "ls -la ./resources"
 
     - name: ls
       run: "ls"
@@ -79,7 +79,7 @@ jobs:
       uses: actions/checkout@a81bbbf8298c0fa03ea29cdc473d45769f953675
 
     - run: dotnet publish ./Source/Consoles/Silvester.BrightBase.Healthcare.Seeding.Cli/Silvester.BrightBase.Healthcare.Seeding.Cli.csproj -c Release -o ./build/publish
-    - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries ~/resources/01_DBC.csv --activity-summaries ~/resources/02_DBC_PROFIEL.csv --activities ~/resources/03_REF_ZAT.csv --diagnoses ~/resources/04_REF_DGN.csv --products ~/resources/05_REF_ZPD.csv --specialties ~/resources/06_REF_SPC.csv
+    - run: dotnet ./build/publish/Silvester.BrightBase.Healthcare.Seeding.Cli.dll seed --product-summaries ../../resources/01_DBC.csv --activity-summaries ../../resources/02_DBC_PROFIEL.csv --activities ../../resources/03_REF_ZAT.csv --diagnoses ../../resources/04_REF_DGN.csv --products ../../resources/05_REF_ZPD.csv --specialties ../../resources/06_REF_SPC.csv
     - run: pg_dump --host postgres --port 5432 -U postgres -d database_brightbase_healthcare -Fp > seed.sql
     - name: Archive Seed Artifact
       uses: actions/upload-artifact@v2
